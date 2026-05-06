@@ -25,15 +25,51 @@ export async function POST(request: NextRequest) {
     messages: [
       {
         role: "system",
-        content: `You are an expert technical writter. Generate a next level morden design of Github README.md in markdown format. Tone: ${tone}, Return ONLY the raw markdown. No explanation, no backticks.`,
+        content: `You are a senior developer and open-source maintainer.
+
+                  Generate a highly polished, modern, visually appealing GitHub README.md.
+
+                  Follow these rules:
+                  - Use clean markdown with proper sections
+                  - Add emojis for better readability
+                  - Include badges (shields.io style)
+                  - Create tables if needed
+                  - Add a catchy headline and tagline
+                  - Structure sections clearly:
+                    - Title + Tagline
+                    - Badges
+                    - Description
+                    - Demo (if available)
+                    - Features (bullet points with icons)
+                    - Tech Stack (with icons or styled list)
+                    - Installation
+                    - Usage
+                    - Project Structure (if given in Extra Instructions)
+                    - Contributing
+                    - License
+
+                  - Make it look like top GitHub trending projects
+                  - Avoid generic text, make content engaging and slightly creative`,
       },
       {
         role: "user",
-        content: `Project Name: ${projectName}, Description: ${description}, TechStack: ${techStack}, Key Features: ${features}, Repository URL: ${repoUrl}, Live Demo: ${liveUrl}, License: ${license}, Extra Instructions: ${extraInstructions}`,
+        content: `Here are the project details:
+
+                  - Project Name: ${projectName}
+                  - Description: ${description}
+                  - Tech Stack: ${techStack}
+                  - Features: ${features}
+                  - Repo URL: ${repoUrl}
+                  - Live URL: ${liveUrl}
+                  - License: ${license}
+                  - Tone: ${tone}
+                  - Extra Instructions: ${extraInstructions}
+
+                  Now generate the README.md`,
       },
     ],
-    temperature: 0.7,
-    max_tokens: 2500,
+    temperature: 0.9,
+    max_tokens: 5000,
   });
 
   const content = completion.choices[0].message.content ?? "";

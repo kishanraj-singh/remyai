@@ -54,10 +54,10 @@ export async function PATCH(
   const { id } = await params;
   const data = await request.json();
 
-  await prisma.readme.update({
+  const readme = await prisma.readme.update({
     where: { id, userId: session.user.id },
     data: { ...data },
   });
 
-  return NextResponse.json(null, { status: 200 });
+  return NextResponse.json(readme, { status: 200 });
 }

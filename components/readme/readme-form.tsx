@@ -65,9 +65,15 @@ export function ReadmeForm({ readme }: { readme: Readme }) {
       const {
         data: { data: content },
       } = await axios.post("/api/generate", data);
-      await axios.patch(`/api/readme/${readme.id}`, { content, ...data });
+      const { data: newReadme } = await axios.patch(
+        `/api/readme/${readme.id}`,
+        {
+          content,
+          ...data,
+        },
+      );
 
-      mutate();
+      mutate(newReadme);
 
       const e = document.getElementById("preview");
       e?.scrollIntoView({ behavior: "smooth" });
@@ -206,7 +212,7 @@ export function ReadmeForm({ readme }: { readme: Readme }) {
           <Field>
             <FieldLabel>Extra Instructions</FieldLabel>
             <Textarea
-              placeholder="Add emojis, include contributing section, methion, Docker setup..."
+              placeholder="Project structure, include contributing section, Docker setup..."
               {...form.register("extraInstructions")}
             />
           </Field>
